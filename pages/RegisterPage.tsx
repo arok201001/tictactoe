@@ -65,7 +65,7 @@ const password = watch("password", "");
                     required: "Password is required",
                     pattern: {
                         value: /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/,
-                        message: "Password must be at least 8 characters long and include at least on number and one special character"
+                        message: "Password must be at least 8 characters long and include at least one number and one special character"
 
                     }
                     })} />
