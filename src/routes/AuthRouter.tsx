@@ -12,3 +12,5 @@ const router = createBrowserRouter([
     element: <RegisterPage />
   }
 ]);
+
+export default router;
