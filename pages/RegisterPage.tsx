@@ -22,49 +22,50 @@ const onSubmit: SubmitHandler<FormInputs> = (data) => {
 
 const password = watch("password", "");
 
+
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div>
-                <label>Användarnamn</label>
+                <label>Username</label>
                 <input 
                 type="text"
                 {...register("username", {
-                    required: "Användarnamn är obligatoriskt",
+                    required: "Username is required",
                     minLength: {
                         value: 5,
-                        message: "Användarnamnet måste innehålla minst 5 tecken"
+                        message: "Username must be at least 5 character long"
                     },
                     pattern: {
                         value: /^[a-zA-Z0-9]+$/,
-                        message: "Användarnamnet får endast innehålla bokstäver och siffror"
+                        message: "Username can only contain letters and numbers"
                     }
                 })} />
                 {errors.username && <p>{errors.username.message}</p>}
             </div>
 
             <div>
-                <label>E-post</label>
+                <label>Email</label>
                 <input 
                 type="email"
                 {...register("email", {
-                    required: "E-post är obligatoriskt",
+                    required: "Email is required",
                     pattern: {
                         value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                        message: "Ange en giltig e-postadress"
+                        message: "Invalid email address"
                     }
                     })} />
                     {errors.email && <p>{errors.email.message}</p>}
             </div>
 
             <div>
-                <label>Lösenord</label>
+                <label>Password</label>
                 <input 
                 type="password"
                 {...register("password", {
-                    required: "Lösenord är obligatoriskt",
+                    required: "Password is required",
                     pattern: {
                         value: /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/,
-                        message: "Lösenordet måste innehålla minst 8 tecken, minst en siffra och ett specialtecken"
+                        message: "Password must be at least 8 characters long and include at least on number and one special character"
 
                     }
                     })} />
@@ -72,18 +73,18 @@ const password = watch("password", "");
             </div>
 
             <div>
-                <label>Bekräfta Lösenord</label>
+                <label>Confirm Password</label>
                 <input 
                 type="password"
                 {...register("confirmPassword", {
-                    required: "Bekräfta ditt lösenord",
-                    validate: (value) => value === password || "Lösenorden matchar inte"
+                    required: "Confirm Password is required",
+                    validate: (value) => value === password || "Passwords do not match"
                 })} />
 
                 {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
             </div>
 
-            <button type="submit">Registrera</button>
+            <button type="submit">Register</button>
 
 
         </form>
