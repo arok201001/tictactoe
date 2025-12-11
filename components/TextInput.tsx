@@ -2,7 +2,7 @@ import type { InputHTMLAttributes } from "react";
 
 export default function TextInput({ ...props }: InputHTMLAttributes<HTMLInputElement>) {
   return (
-    <input
+    <input className=""
       type="text"
       {...props}
     />
