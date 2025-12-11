@@ -1,1 +1,18 @@
 @import "tailwindcss";
+
+body {
+    background: linear-gradient(#834ae5, #aa3eb8);
+    margin: 10px;
+    height: 100vh;
+    overflow-y: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.fade-left-to-mid {
+  -webkit-mask-image: linear-gradient(to right, black 0%, transparent 90%);
+}
+
+.fade-right-to-mid {
+  -webkit-mask-image: linear-gradient(to left, black 0%, transparent 90%);
+}
