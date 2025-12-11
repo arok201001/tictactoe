@@ -1,20 +1,24 @@
-import Input from "../components/Input"; 
+import { forwardRef, InputHTMLAttributes } from "react";
 
-<form onSubmit={handleSubmit(onSubmit)}>
-  
-  <Input
-    label="Username"
-    type="text"
-    error={errors.username?.message}
-    {...register("username", { required: "Username is required" })}
-  />
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  label: string;
+  error?: string;
+}
 
-  <Input
-    label="Password"
-    type="password"
-    error={errors.password?.message}
-    {...register("password", { required: "Password is required" })}
-  />
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ label, error, ...props }, ref) => {
+    return (
+      <div>
+        <label>{label}</label>
+        
+        <input ref={ref} {...props} />
+        
+        {error && <p>{error}</p>}
+      </div>
+    );
+  }
+);
 
-  <button type="submit">Login</button>
-</form>
+Input.displayName = "Input";
+
+export default Input;
