@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import DashboardPage from "../../pages/DashboardPage";
+import DashboardPage from "../pages/DashboardPage";
 
 const router = createBrowserRouter([
   {
