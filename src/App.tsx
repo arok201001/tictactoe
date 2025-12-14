@@ -1,8 +1,12 @@
 import { RouterProvider } from "react-router-dom";
-import router from "./routes/AuthRouter";
+import { AuthContext } from "./contexts/AuthContext";
+import { useContext } from "react";
+import authRouter from "../src/routes/AuthRouter"
+import appRouter from "../src/routes/AppRouter"
 
-function App() {
-  return <RouterProvider router={router} /> 
+export default function App() {
+  const { user } = useContext(AuthContext);
+
+  return <RouterProvider router={user ? appRouter : authRouter} />
+
 }
-
-export default App;

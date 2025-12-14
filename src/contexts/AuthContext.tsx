@@ -82,6 +82,8 @@ export default function AuthProvider({ children }: Props) {
         console.log("Password is incorrect");
       }
       throw new Error("Login failed");
+    } finally {
+      setLoading(false)
     }
   };
 
