@@ -1,16 +1,22 @@
 import { useState } from "react";
-// import { BASE_URL } from "../constants";
-// import { AuthContext } from "../contexts/AuthContext";
 import TextInput from "../components/TextInput";
 import symbol from "../assets/symbol.png";
 import envelope from "../assets/envelope-icon.png";
 import lock from "../assets/lock-icon.png";
 import Button from "../components/Button";
 import Or from "../components/Or";
+import { NavLink } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { login, loading } = useAuth()
+
+  const handleLogin = () => {
+    login(email, password)
+  }
 
   return (
     <div className="flex flex-col justify-center items-center bg-[#152034] p-5 rounded-xl max-w-90">
@@ -41,15 +47,20 @@ export default function LoginPage() {
           iconAlt="lock"
         />
       </div>
-      <a className="text-sm text-purple-500 w-full text-right mr-5">
+      <a className="text-sm text-purple-500 w-full text-right mr-5 cursor-pointer">
         Forgot password?
       </a>
-      <Button>Sign In ➔</Button>
+      <Button onClick={handleLogin} disabled={loading}>
+        {loading ? "Logging in..." : "Sign In ➔"}
+        </Button>
       <Or />
-      <p className="text-[#8d9db5] text-sm">
-        Don't have an account?{" "}
-        <a className="text-[#00cedd] text-sm cursor-pointer">Create one</a>
+      <p className="text-[#8d9db5] text-sm flex gap-1">
+        Don't have an account?
+        <NavLink to={"/register"}>
+          <span className="text-[#00cedd] text-sm cursor-pointer">Create one</span>
+        </NavLink>
       </p>
     </div>
   );
 }
+
