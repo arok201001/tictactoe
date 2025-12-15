@@ -43,15 +43,16 @@ export default function RegisterPage() {
     const password = watch("password", "");
 
     return (
-        <div className="flex flex-col justify-center items-center bg-[#152034] p-5 rounded-xl w-[400px] max-w-full mx-auto my-10 shadow-lg">
+        <div className="flex flex-col justify-center items-center bg-[#152034] p-5 rounded-xl max-w-90 mx-auto shadow-lg">
             
-            <img src={symbol} alt="Logo" className="h-14 mb-2" />
+            <img src={symbol} alt="Logo" className="h-14" />
+            
             <h1 className="text-white text-3xl mt-3">SIGN UP</h1>
-            <h3 className="text-[#8d9db5] mt-1 text-sm mb-6">
+            <h3 className="text-[#8d9db5] mt-1 text-sm">
                 Sign up and start playing
             </h3>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col items-center">
+            <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col items-center mt-7">
                 
                 {apiError && (
                     <div className="bg-red-500/20 border border-red-500 text-red-200 px-4 py-2 rounded text-sm mb-4 w-full text-center">
@@ -80,7 +81,7 @@ export default function RegisterPage() {
                         })} 
                     />
                     {errors.username && (
-                        <p className="text-red-400 text-xs pl-1 -mt-3 mb-2">{errors.username.message}</p>
+                        <p className="text-red-400 text-xs m-1 mb-3">{errors.username.message}</p>
                     )}
                 </div>
 
@@ -102,7 +103,7 @@ export default function RegisterPage() {
                         })} 
                     />
                     {errors.email && (
-                        <p className="text-red-400 text-xs pl-1 -mt-3 mb-2">{errors.email.message}</p>
+                        <p className="text-red-400 text-xs m-1 mb-3">{errors.email.message}</p>
                     )}
                 </div>
 
@@ -124,7 +125,7 @@ export default function RegisterPage() {
                         })} 
                     />
                     {errors.password && (
-                        <p className="text-red-400 text-xs pl-1 -mt-3 mb-2">{errors.password.message}</p>
+                        <p className="text-red-400 text-xs m-1 mb-3">{errors.password.message}</p>
                     )}
                 </div>
 
@@ -143,7 +144,7 @@ export default function RegisterPage() {
                         })} 
                     />
                     {errors.confirmPassword && (
-                        <p className="text-red-400 text-xs pl-1 -mt-3 mb-2">{errors.confirmPassword.message}</p>
+                        <p className="text-red-400 text-xs m-1 mb-3">{errors.confirmPassword.message}</p>
                     )}
                 </div>
 
