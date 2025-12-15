@@ -18,6 +18,7 @@ export type AuthContextType = {
     user: User | null;
     login: (email: string, password: string) => Promise<void>;
     register: (username: string, email: string, password: string) => Promise<void>;
+    forgotPassword: (email: string) => Promise<void>;
     loading: boolean;
 }
 

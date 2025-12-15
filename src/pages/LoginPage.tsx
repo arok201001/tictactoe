@@ -47,9 +47,9 @@ export default function LoginPage() {
           iconAlt="lock"
         />
       </div>
-      <a className="text-sm text-purple-500 w-full text-right mr-5 cursor-pointer">
+      <NavLink to="/forgot-password" className="text-sm text-purple-500 w-full text-right mr-5 cursor-pointer">
         Forgot password?
-      </a>
+      </NavLink>
       <Button onClick={handleLogin} disabled={loading}>
         {loading ? "Logging in..." : "Sign In ➔"}
         </Button>
