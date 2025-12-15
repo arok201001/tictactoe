@@ -23,3 +23,8 @@ export type AuthContextType = {
 export type Props = {
     children: React.ReactElement;
 }
+
+export type LoginFormData = {
+  email: string;
+  password: string; 
+}
