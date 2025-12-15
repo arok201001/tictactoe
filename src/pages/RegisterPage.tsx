@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 type FormInputs = {
     username: string;
@@ -9,6 +11,13 @@ type FormInputs = {
 };
 
 export default function RegisterPage() {
+
+    const { register: registerUser, loading } = useAuth();
+    const navigate = useNavigate();
+    
+
+    const [apiError, setApiError] = useState<string | null>(null);
+
     const {
         register,
         handleSubmit,
@@ -16,15 +25,32 @@ export default function RegisterPage() {
         formState: { errors },
     } = useForm<FormInputs>();
 
-const onSubmit: SubmitHandler<FormInputs> = (data) => {
-    console.log("Valid Data:", data);
-};
+    const onSubmit: SubmitHandler<FormInputs> = async (data) => {
+        setApiError(null); 
+        try {
 
-const password = watch("password", "");
+            await registerUser(data.username, data.email, data.password);
+            
 
+            navigate("/");
+        } catch (error) {
+            console.error("Registration failed:", error);
+            setApiError("Registration failed. Username or email might be taken.");
+        }
+    };
+
+    const password = watch("password", "");
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
+            
+
+            {apiError && (
+                <div style={{ color: "red", marginBottom: "1rem" }}>
+                    {apiError}
+                </div>
+            )}
+
             <div>
                 <label>Username</label>
                 <input 
@@ -84,12 +110,10 @@ const password = watch("password", "");
                 {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
             </div>
 
-            <button type="submit">Register</button>
-
+            <button type="submit" disabled={loading}>
+                {loading ? "Registering..." : "Register"}
+            </button>
 
         </form>
     )
-
-
-
-    }
+}
