@@ -52,15 +52,16 @@ export default function RegisterPage() {
                 Sign up and start playing
             </h3>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col items-center mt-7">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center mt-7">
                 
                 {apiError && (
-                    <div className="bg-red-500/20 border border-red-500 text-red-200 px-4 py-2 rounded text-sm mb-4 w-full text-center">
+                    <div className="w-80 bg-red-500/20 border border-red-500 text-red-200 px-4 py-2 rounded text-sm mb-4 text-center">
                         {apiError}
                     </div>
                 )}
 
-                <div className="w-full">
+                
+                <div className="w-80">
                     <label className="text-xs text-[#8d9db5] text-left block mb-1 uppercase pl-1">
                         Username
                     </label>
@@ -85,7 +86,7 @@ export default function RegisterPage() {
                     )}
                 </div>
 
-                <div className="w-full">
+                <div className="w-80">
                     <label className="text-xs text-[#8d9db5] text-left block mb-1 uppercase pl-1">
                         Email
                     </label>
@@ -107,7 +108,7 @@ export default function RegisterPage() {
                     )}
                 </div>
 
-                <div className="w-full">
+                <div className="w-80">
                     <label className="text-xs text-[#8d9db5] text-left block mb-1 uppercase pl-1">
                         Password
                     </label>
@@ -129,7 +130,7 @@ export default function RegisterPage() {
                     )}
                 </div>
 
-                <div className="w-full">
+                <div className="w-80">
                     <label className="text-xs text-[#8d9db5] text-left block mb-1 uppercase pl-1">
                         Confirm Password
                     </label>

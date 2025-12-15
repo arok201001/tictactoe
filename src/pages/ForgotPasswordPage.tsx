@@ -38,29 +38,33 @@ export default function ForgotPasswordPage() {
     };
 
     return (
-        <div className="flex flex-col justify-center items-center bg-[#152034] p-5 rounded-xl w-[400px] max-w-full mx-auto my-10 shadow-lg">
+
+        <div className="flex flex-col justify-center items-center bg-[#152034] p-5 rounded-xl max-w-90 mx-auto shadow-lg">
             
-            <img src={symbol} alt="Logo" className="h-14 mb-2" />
+
+            <img src={symbol} alt="Logo" className="h-14" />
+            
             <h1 className="text-white text-3xl mt-3">RESET PASSWORD</h1>
-            <h3 className="text-[#8d9db5] mt-1 text-sm mb-6 text-center">
+
+            <h3 className="text-[#8d9db5] mt-1 text-sm text-center">
                 Enter your email to receive a reset link
             </h3>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col items-center">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center mt-7">
                 
                 {apiError && (
-                    <div className="bg-red-500/20 border border-red-500 text-red-200 px-4 py-2 rounded text-sm mb-4 w-full text-center">
+                    <div className="w-80 bg-red-500/20 border border-red-500 text-red-200 px-4 py-2 rounded text-sm mb-4 text-center">
                         {apiError}
                     </div>
                 )}
 
                 {successMessage && (
-                    <div className="bg-green-500/20 border border-green-500 text-green-200 px-4 py-2 rounded text-sm mb-4 w-full text-center">
+                    <div className="w-80 bg-green-500/20 border border-green-500 text-green-200 px-4 py-2 rounded text-sm mb-4 text-center">
                         {successMessage}
                     </div>
                 )}
 
-                <div className="w-full">
+                <div className="w-80">
                     <label className="text-xs text-[#8d9db5] text-left block mb-1 uppercase pl-1">
                         Email
                     </label>
@@ -77,8 +81,9 @@ export default function ForgotPasswordPage() {
                             }
                         })} 
                     />
+
                     {errors.email && (
-                        <p className="text-red-400 text-xs pl-1 -mt-3 mb-2">{errors.email.message}</p>
+                        <p className="text-red-400 text-xs m-1 mb-3">{errors.email.message}</p>
                     )}
                 </div>
 
