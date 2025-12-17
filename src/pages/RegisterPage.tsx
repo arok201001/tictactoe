@@ -16,7 +16,7 @@ export default function RegisterPage() {
   const navigate = useNavigate();
   const [apiError, setApiError] = useState<string | null>(null);
 
-  const {asd 
+  const {
     register,
     handleSubmit,
     watch,
