@@ -5,8 +5,8 @@ import { apiClient } from "../api/api-client";
 
 export const AuthContext = createContext<AuthContextType>({
   user: null,
-  login: async (email: string, password: string ) => {},
-  register: async (username: string, email: string, password: string) => {},
+  login: async (email: string, password: string) => {},
+  register: async (name: string, phone: string, email: string, password: string) => {},
   forgotPassword: async (email: string) => {},
   loading: false,
 });
@@ -59,7 +59,7 @@ export default function AuthProvider({ children }: Props) {
   }, []);
 
   const login = async (email: string, password: string) => {
-    setLoading(true)
+    setLoading(true);
     try {
       const response = await apiClient.post(`/login`, {
         email,
@@ -85,15 +85,16 @@ export default function AuthProvider({ children }: Props) {
       }
       throw new Error("Login failed");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
-  const register = async (username: string, email: string, password: string) => {
-    setLoading(true)
+  const register = async (name: string, phone: string, email: string, password: string) => {
+    setLoading(true);
     try {
-      const response = await apiClient.post(`/register`, {
-        username,
+      const response = await apiClient.post(`/sign_up`, {
+        name,
+        phone,
         email,
         password,
       });
@@ -110,14 +111,14 @@ export default function AuthProvider({ children }: Props) {
       console.log("Registration error:", error);
       throw error;
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
   const forgotPassword = async (email: string) => {
     setLoading(true);
     try {
-      await apiClient.post(`/forgot-password`, { 
+      await apiClient.post(`/forgot-password`, {
         email,
       });
       console.log("Reset email sent successfully");
