@@ -11,17 +11,6 @@ import symbol from "../assets/symbol.png";
 import envelope from "../assets/envelope-icon.png";
 import lock from "../assets/lock-icon.png";
 
-<<<<<<< Updated upstream
-=======
-type FormInputs = {
-    name: string;
-    phone: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-};
-
->>>>>>> Stashed changes
 export default function RegisterPage() {
   const { register: registerUser, loading } = useAuth();
   const navigate = useNavigate();
@@ -34,29 +23,16 @@ export default function RegisterPage() {
     formState: { errors },
   } = useForm<FormInputs>();
 
-<<<<<<< Updated upstream
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
     setApiError(null);
     try {
-      await registerUser(data.name, data.email, data.password);
+      await registerUser(data.name, data.phone, data.email, data.password);
       navigate("/");
     } catch (error) {
       console.error("Registration failed:", error);
       setApiError("Registration failed. name or email might be taken.");
     }
   };
-=======
-    const onSubmit: SubmitHandler<FormInputs> = async (data) => {
-        setApiError(null);
-        try {
-            await registerUser(data.name, data.phone, data.email, data.password);
-            navigate("/");
-        } catch (error) {
-            console.error("Registration failed:", error);
-            setApiError("Registration failed. Name or email might be taken.");
-        }
-    };
->>>>>>> Stashed changes
 
   const password = watch("password", "");
 
@@ -67,7 +43,6 @@ export default function RegisterPage() {
       <h1 className="text-white text-3xl mt-3">SIGN UP</h1>
       <h3 className="text-[#8d9db5] mt-1 text-sm">Sign up and start playing</h3>
 
-<<<<<<< Updated upstream
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col items-center mt-7"
@@ -77,55 +52,6 @@ export default function RegisterPage() {
             {apiError}
           </div>
         )}
-=======
-                
-                <div className="w-80">
-                    <label className="text-xs text-[#8d9db5] text-left block mb-1 uppercase pl-1">
-                        Name
-                    </label>
-                    <TextInput 
-                        placeholder="Choose a name"
-                        iconSrc={envelope} 
-                        iconAlt="user"
-                        {...register("name", {
-                            required: "Name is required",
-                            minLength: {
-                                value: 5,
-                                message: "Min 5 characters"
-                            },
-                            pattern: {
-                                value: /^[a-zA-Z0-9]+$/,
-                                message: "Letters and numbers only"
-                            }
-                        })} 
-                    />
-                    {errors.name && (
-                        <p className="text-red-400 text-xs m-1 mb-3">{errors.name.message}</p>
-                    )}
-                </div>
-
-                <div className="w-80">
-                    <label className="text-xs text-[#8d9db5] text-left block mb-1 uppercase pl-1">
-                        Phone
-                    </label>
-                    <TextInput 
-                        placeholder="Enter your phone number"
-                        iconSrc={envelope}
-                        iconAlt="envelope"
-                        type="tel"
-                        {...register("phone", {
-                            required: "Phone is required",
-                            pattern: {
-                                value: /^\+?[0-9]{10,15}$/,
-                                message: "Invalid phone number"
-                            }
-                        })} 
-                    />
-                    {errors.phone && (
-                        <p className="text-red-400 text-xs m-1 mb-3">{errors.phone.message}</p>
-                    )}
-                </div>
->>>>>>> Stashed changes
 
         <div className="w-80">
           <label className="text-xs text-[#8d9db5] text-left block mb-1 uppercase pl-1">
@@ -153,6 +79,29 @@ export default function RegisterPage() {
             </p>
           )}
         </div>
+
+
+        <div className="w-80">
+                    <label className="text-xs text-[#8d9db5] text-left block mb-1 uppercase pl-1">
+                        Phone
+                    </label>
+                    <TextInput 
+                        placeholder="Enter your phone number"
+                        iconSrc={envelope}
+                        iconAlt="envelope"
+                        type="tel"
+                        {...register("phone", {
+                            required: "Phone is required",
+                            pattern: {
+                                value: /^\+?[0-9]{10,15}$/,
+                                message: "Invalid phone number"
+                            }
+                        })} 
+                    />
+                    {errors.phone && (
+                        <p className="text-red-400 text-xs m-1 mb-3">{errors.phone.message}</p>
+                    )}
+                </div>
 
         <div className="w-80">
           <label className="text-xs text-[#8d9db5] text-left block mb-1 uppercase pl-1">
@@ -211,15 +160,15 @@ export default function RegisterPage() {
             iconSrc={lock}
             iconAlt="lock"
             type="password"
-            {...register("phone", {
+            {...register("confirmPassword", {
               required: "Confirm Password is required",
               validate: (value) =>
                 value === password || "Passwords do not match",
             })}
           />
-          {errors.phone && (
+          {errors.confirmPassword && (
             <p className="text-red-400 text-xs m-1 mb-3">
-              {errors.phone.message}
+              {errors.confirmPassword.message}
             </p>
           )}
         </div>
