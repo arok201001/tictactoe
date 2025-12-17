@@ -1,1 +1,1 @@
-export const BASE_URL = "http://10.100.3.140:3000"
+export const BASE_URL = "https://api.leetcode.se/fos25-server";

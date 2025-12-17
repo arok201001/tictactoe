@@ -31,6 +31,7 @@ export type LoginFormData = {
   password: string; 
 }
 
+
 export type Player = 'X' | 'O' | null;
 
 export type Score = {
