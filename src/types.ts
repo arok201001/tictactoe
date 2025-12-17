@@ -36,4 +36,5 @@ export type FormInputs = {
   phone: string;
   email: string;
   password: string;
+  confirmPassword: string;
 };
