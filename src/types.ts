@@ -30,3 +30,11 @@ export type LoginFormData = {
   email: string;
   password: string; 
 }
+
+export type Player = 'X' | 'O' | null;
+
+export type Score = {
+  X: number;
+  O: number;
+  Ties: number;
+};
