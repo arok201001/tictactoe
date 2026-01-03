@@ -1,15 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
-import DashboardPage from "../pages/DashboardPage";
 import NotFoundPage from "../pages/NotFoundPage";
+import Lobby from "../pages/LobbyPage";
+import GamePage from "../pages/GamePage";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <DashboardPage />,
+    element: <Lobby />,
   },
   {
-    path: "*",
-    element: <div>Page not found</div>,
+    path: "/game",
+    element: <GamePage />,
   },
   {
     path: "*",

@@ -45,4 +45,12 @@ export type Score = {
   X: number;
   O: number;
   Ties: number;
+}
+
+export type FormInputs = {
+  name: string;
+  phone: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
 };

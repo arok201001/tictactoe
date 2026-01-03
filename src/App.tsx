@@ -7,6 +7,6 @@ import appRouter from "../src/routes/AppRouter"
 export default function App() {
   const { user } = useContext(AuthContext);
 
-  return <RouterProvider router={user ? appRouter : authRouter} />
+  return <RouterProvider router={user ? authRouter : appRouter} />
 
 }
