@@ -37,4 +37,12 @@ export type FormInputs = {
   email: string;
   password: string;
   confirmPassword: string;
+}
+
+export type Player = 'X' | 'O' | null;
+
+export type Score = {
+  X: number;
+  O: number;
+  Ties: number;
 };
