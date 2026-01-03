@@ -1,4 +1,3 @@
-import { useState } from "react";
 import TextInput from "../components/TextInput";
 import symbol from "../assets/symbol.png";
 import envelope from "../assets/envelope-icon.png";
@@ -34,7 +33,7 @@ export default function LoginPage() {
     >
       <img src={symbol} alt="" className="h-14" />
       <h1 className="text-white text-3xl mt-3 ">WELCOME BACK</h1>
-      <h3 className="text-[#8d9db5] mt-1 text-sm">
+      <h3 className="text-[#8d9db5] mt-2 text-sm">
         Sign in to continue playing
       </h3>
       <div className="mt-7 flex flex-col">
