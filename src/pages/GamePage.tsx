@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Trophy, RotateCw } from "lucide-react";
 import Square from "../components/Square";
 import ScoreBoard from "../components/ScoreBoard";
 import type { Player, Score } from "../types";
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-
-
+import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCj4vNmQfednODlZ8KmB8hitaKacLsadmw",
   authDomain: "tictactoe-16219.firebaseapp.com",
+  databaseURL: "https://tictactoe-16219-default-rtdb.europe-west1.firebasedatabase.app/",
   projectId: "tictactoe-16219",
   storageBucket: "tictactoe-16219.firebasestorage.app",
   messagingSenderId: "21488013840",
@@ -18,9 +17,8 @@ const firebaseConfig = {
   measurementId: "G-MX7TKS63TL"
 };
 
-
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const db = getDatabase(app);
 
 const WINNING_LINES = [
   [0, 1, 2], [3, 4, 5], [6, 7, 8],
