@@ -14,7 +14,7 @@ export default function LoginPage() {
   const { login, loading } = useAuth();
 
   const {
-    register,
+    register, //registrerar inputen with validation
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormData>();

@@ -34,9 +34,9 @@ export default function GamePage() {
   //
 
   //
-  const isWritingToFirebase = useRef(false);
-  const isFirstLoad = useRef(true);
-  const lastBoardHash = useRef<string>("");
+  const isWritingToFirebase = useRef(false); // prevent loops
+  const isFirstLoad = useRef(true); // skippa sync
+  const lastBoardHash = useRef<string>(""); // track changes
   //
 
   //

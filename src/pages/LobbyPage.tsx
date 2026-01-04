@@ -10,11 +10,11 @@ export default function Lobby() {
   const createRoom = () => {
     const code = Math.random().toString(36).substring(2, 8).toUpperCase();
     setRoomCode(code);
-    const roomRef = ref(db, `rooms/${code}`);
+    const roomRef = ref(db, `rooms/${code}`); // reference till nya rummet 
     
-    set(roomRef, {
+    set(roomRef, { // inital data
       players: ["Player 1"],
-      createdAt: Date.now()
+      createdAt: Date.now() // timestamp
     });
   };
 
@@ -22,7 +22,7 @@ export default function Lobby() {
     if (!joinCode.trim()) return;
     
     const { get } = await import("firebase/database");
-    const roomRef = ref(db, `rooms/${joinCode}`);
+    const roomRef = ref(db, `rooms/${joinCode}`); // reference för requested room
     const snapshot = await get(roomRef);
     
     if (snapshot.exists()) {
@@ -34,12 +34,12 @@ export default function Lobby() {
         return;
       }
       
-      const updatedPlayers = [
+      const updatedPlayers = [ // update to list
         ...(data.players || []),
         `Player ${playerCount + 1}`
       ];
       
-      await set(ref(db, `rooms/${joinCode}`), {
+      await set(ref(db, `rooms/${joinCode}`), { // uptade room with new players
         ...data,
         players: updatedPlayers
       });
@@ -49,8 +49,8 @@ export default function Lobby() {
     }
   };
 
-  useEffect(() => {
-    if (!roomCode) return;
+  useEffect(() => { // listener
+    if (!roomCode) return; // Only if we have a room
     
     const roomRef = ref(db, `rooms/${roomCode}`);
     const unsubscribe = onValue(roomRef, (snapshot) => {
