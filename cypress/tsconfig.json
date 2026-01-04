@@ -5,5 +5,5 @@
     "sourceMap": true,
     "types": ["cypress", "node"]
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "e2e/tests.cy.tsx", "e2e/tests.cy.tsx", "e2e/tests.cy.tsx"]
 }
