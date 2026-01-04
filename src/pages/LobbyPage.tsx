@@ -1,31 +1,144 @@
-import Button from "../components/Button";
-import { NavLink } from "react-router-dom";
-import players from "../assets/players-icon.png";
+import { useState, useEffect } from "react";
+import { ref, set, onValue, remove } from "firebase/database";
+import { db } from "../firebase";
 
 export default function Lobby() {
+  const [roomCode, setRoomCode] = useState("");
+  const [playersList, setPlayersList] = useState<string[]>([]);
+  const [joinCode, setJoinCode] = useState("");
+
+  const createRoom = () => {
+    const code = Math.random().toString(36).substring(2, 8).toUpperCase();
+    setRoomCode(code);
+    const roomRef = ref(db, `rooms/${code}`);
+    
+    set(roomRef, {
+      players: ["Player 1"],
+      createdAt: Date.now()
+    });
+  };
+
+  const joinRoom = async () => {
+    if (!joinCode.trim()) return;
+    
+    const { get } = await import("firebase/database");
+    const roomRef = ref(db, `rooms/${joinCode}`);
+    const snapshot = await get(roomRef);
+    
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      const playerCount = data.players?.length || 0;
+      
+      if (playerCount >= 2) {
+        alert("Room is full!");
+        return;
+      }
+      
+      const updatedPlayers = [
+        ...(data.players || []),
+        `Player ${playerCount + 1}`
+      ];
+      
+      await set(ref(db, `rooms/${joinCode}`), {
+        ...data,
+        players: updatedPlayers
+      });
+      setRoomCode(joinCode);
+    } else {
+      alert("Room not found!");
+    }
+  };
+
+  useEffect(() => {
+    if (!roomCode) return;
+    
+    const roomRef = ref(db, `rooms/${roomCode}`);
+    const unsubscribe = onValue(roomRef, (snapshot) => {
+      const data = snapshot.val();
+      setPlayersList(data?.players || []);
+    });
+    
+    return () => unsubscribe();
+  }, [roomCode]);
+
+  const leaveLobby = () => {
+    if (roomCode) {
+      remove(ref(db, `rooms/${roomCode}`));
+    }
+    setRoomCode("");
+    setPlayersList([]);
+  };
+
+  const startGame = () => {
+    window.location.href = `/game?room=${roomCode}`;
+  };
+
   return (
     <div className="flex flex-col justify-center items-center bg-[#152034] p-5 rounded-xl max-w-90 min-w-90">
-      <h1 className="text-white text-3xl mt-3 ">WELCOME BACK</h1>
-      <h3 className="text-[#8d9db5] mt-2 text-sm">
-        Waiting for players to join...
-      </h3>
-      <h2 className="text-[#8d9db5] text-sm mt-10 mb-3">ROOM CODE</h2>
-      <div
-        id="room-code"
-        className="bg-red-50 h-30 w-80 rounded-xl bg-linear-to-r from-[#2f2054] to-[#412345] mb-7"
-      ></div>
-      <div id="lobby-players" className="flex mr-auto items-center">
-        <div className="flex gap-1">
-          <img src={players} alt="" className="h-8" />
-          <p className="p-1 text-[#8d9db5]">PLAYERS</p>
-        </div>
-      </div>
-      <div id="buttons-lobby" className="flex flex-col">
-        <NavLink to={"/dashboard"}>
-          <Button style={{ marginBottom: "0px" }}>➤ Start Game</Button>
-        </NavLink>
-        <Button style={{ backgroundColor: "#29374d" }}>⎋ Leave Lobby</Button>
-      </div>
+      <h1 className="text-white text-3xl mt-3">MULTIPLAYER LOBBY</h1>
+      
+      {!roomCode ? (
+        <>
+          <button 
+            onClick={createRoom}
+            className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg mt-6"
+          >
+            Create Room
+          </button>
+          
+          <div className="mt-6 text-white">OR</div>
+          
+          <div className="mt-4 flex gap-2">
+            <input 
+              value={joinCode}
+              onChange={(e) => setJoinCode(e.target.value.toUpperCase())}
+              placeholder="Enter room code"
+              className="p-3 rounded-lg bg-[#1e293b] text-white border border-gray-600 w-48"
+              maxLength={6}
+            />
+            <button 
+              onClick={joinRoom}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg"
+            >
+              Join
+            </button>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="mt-4 text-center">
+            <h3 className="text-[#8d9db5]">Room Code:</h3>
+            <h2 className="text-white text-2xl font-bold tracking-wider">{roomCode}</h2>
+          </div>
+          
+          <div className="mt-6 w-full">
+            <h4 className="text-white mb-2">Players ({playersList.length}/2):</h4>
+            {playersList.map((player, index) => (
+              <div key={index} className="bg-[#1e293b] p-3 rounded-lg mb-2">
+                <p className="text-green-300">{player}</p>
+              </div>
+            ))}
+          </div>
+          
+          {playersList.length >= 2 && (
+            <div className="mt-6">
+              <button 
+                onClick={startGame}
+                className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg"
+              >
+                Start Game
+              </button>
+            </div>
+          )}
+          
+          <button 
+            onClick={leaveLobby}
+            className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg mt-8"
+          >
+            Leave Lobby
+          </button>
+        </>
+      )}
     </div>
   );
 }

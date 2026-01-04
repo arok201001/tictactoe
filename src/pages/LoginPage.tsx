@@ -9,6 +9,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { useForm } from "react-hook-form";
 import type { LoginFormData } from "../types";
 
+
 export default function LoginPage() {
   const { login, loading } = useAuth();
 
