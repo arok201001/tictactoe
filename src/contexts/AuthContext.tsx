@@ -5,9 +5,9 @@ import { apiClient } from "../api/api-client";
 
 export const AuthContext = createContext<AuthContextType>({
   user: null,
-  login: async (email: string, password: string) => {},
-  register: async (name: string, phone: string, email: string, password: string) => {},
-  forgotPassword: async (email: string) => {},
+  login: async (_email: string, _password: string) => {},
+  register: async (_name: string, _phone: string, _email: string, _password: string) => {},
+  forgotPassword: async (_email: string) => {},
   loading: false,
 });
 

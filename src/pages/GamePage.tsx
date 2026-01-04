@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Trophy, RotateCw } from "lucide-react";
 import Square from "../components/Square";
 import ScoreBoard from "../components/ScoreBoard";
