@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ref, set, onValue, remove } from "firebase/database";
+import { ref, set, onValue, remove, update } from "firebase/database";
 import { db } from "../firebase";
 
 export default function Lobby() {
@@ -56,6 +56,10 @@ export default function Lobby() {
     const unsubscribe = onValue(roomRef, (snapshot) => {
       const data = snapshot.val();
       setPlayersList(data?.players || []);
+
+      if (data?.started) {
+        window.location.href = `/game?room=${roomCode}`;
+      }
     });
     
     return () => unsubscribe();
@@ -69,7 +73,8 @@ export default function Lobby() {
     setPlayersList([]);
   };
 
-  const startGame = () => {
+  const startGame = async () => {
+    await update(ref(db, `rooms/${roomCode}`), { started: true, startedAt: Date.now() });
     window.location.href = `/game?room=${roomCode}`;
   };
 

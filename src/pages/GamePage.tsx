@@ -31,15 +31,14 @@ export default function GamePage() {
   const [playerId] = useState(
     () => `player_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
   );
-  //
 
-  //
-  const isWritingToFirebase = useRef(false); // prevent loops
-  const isFirstLoad = useRef(true); // skippa sync
-  const lastBoardHash = useRef<string>(""); // track changes
-  //
 
-  //
+
+  const isWritingToFirebase = useRef(false);
+  const isFirstLoad = useRef(true); 
+  const lastBoardHash = useRef<string>(""); 
+
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const roomParam = params.get("room");
@@ -75,9 +74,9 @@ export default function GamePage() {
       assignPlayer();
     }
   }, [playerId]);
-  //
 
-  //
+
+
   useEffect(() => {
     if (!room || !isInitialized) return;
 
@@ -102,7 +101,7 @@ export default function GamePage() {
         }
       }
 
-      //
+     
       const newBoardHash = newBoard.join("");
       if (lastBoardHash.current === newBoardHash) return;
       lastBoardHash.current = newBoardHash;
@@ -119,11 +118,10 @@ export default function GamePage() {
 
     return () => unsubscribe();
   }, [room, isInitialized]);
-  //
+  
 
-  // Din kod ändrad pga infinite win loop, useEffect orsakade extra rerenders 
-  // när boarden uppdaterades: 
-  // tog bort useEffect, lagt till true/false, funktionen nu anropas i handleSquareClick.
+
+
   const checkWinner = (currentBoard: Player[]) => {
     for (let i = 0; i < WINNING_LINES.length; i++) {
       const [a, b, c] = WINNING_LINES[i];
@@ -156,7 +154,7 @@ export default function GamePage() {
     return false;
   };
 
-  //
+  
   useEffect(() => {
     if (!room || !mySymbol || !isInitialized) return;
 
@@ -192,12 +190,12 @@ export default function GamePage() {
     mySymbol,
     isInitialized,
   ]);
-  //
+  
 
   const handleSquareClick = (index: number) => {
     if (board[index] || winner) return;
 
-    //
+    
     if (mySymbol) {
       const isMyTurn =
         (xIsNext && mySymbol === "X") || (!xIsNext && mySymbol === "O");
@@ -206,7 +204,7 @@ export default function GamePage() {
         return;
       }
     }
-    //
+    
 
     const newBoard = [...board];
     newBoard[index] = xIsNext ? "X" : "O";
@@ -222,9 +220,9 @@ export default function GamePage() {
     setWinner(null);
     setWinningLine(null);
     setXIsNext(true);
-    //
+    
     lastBoardHash.current = "";
-    //
+    
   };
 
   const handleResetScores = () => {
